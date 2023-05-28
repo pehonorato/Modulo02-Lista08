@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+        List<Heroi> grupoHerois = new ArrayList<>();
+
+        try {
+            adicionarHeroi(grupoHerois, "Superman");
+            adicionarHeroi(grupoHerois, "Batman");
+            adicionarHeroi(grupoHerois, "Superman"); // Herói com nome repetido
+            adicionarHeroi(grupoHerois, "Mulher-Maravilha");
+        } catch (NomeRepetidoException e) {
+            System.out.println("Os heróis não podem ter nome repetido");
+        }
+    }
+
+    public static void adicionarHeroi(List<Heroi> grupoHerois, String nome) throws NomeRepetidoException {
+        for (Heroi heroi : grupoHerois) {
+            if (heroi.getNome().equals(nome)) {
+                throw new NomeRepetidoException();
+            }
+        }
+
+        grupoHerois.add(new Heroi(nome));
+    }
+}
+
+class Heroi {
+    private String nome;
+
+    public Heroi(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+}
+
+class NomeRepetidoException extends Exception {
+    // Implementação personalizada da exceção
+}
